@@ -149,9 +149,9 @@ unsigned int treeSize(Node* root){
         
         ++tree_size;
     }
-
-    return tree_size;
     
+    free(stack);
+    return tree_size;
 }
 
 
