@@ -103,8 +103,10 @@ void insertEntity_HashTable_OA(struct entity_OA* entity, struct hash_table_OA* t
         printf("insertEntity: '%s': inserted in table '%s'.\n", entity->key, table->name);
         return;
     }
-
-    for (int i = 0; i < table->size; i++){
+    int i = 1;
+    unsigned long long int collision_index = (index + i) % table->size;
+    for (i = 1; i < table->size; i++){
+        collision_index = (index + i) % table->size;
         if (!table->table[(index + i) % table->size]){
             table->table[(index + i) % table->size] = entity;
             printf("insertEntity: '%s': inserted in table '%s'.\n", entity->key, table->name);
@@ -152,9 +154,10 @@ void deleteEntity_HashTable_OA(struct hash_table_OA* table, const char* key){
         printf("deleteEntity: '%s': deleted from table '%s'.\n", key, table->name);
         return;
     }
-
-    for (int i = 1; i < table->size; i++){
-        unsigned long long collision_index = (index + i) % table->size;
+    int i = 1;
+    unsigned long long collision_index = (index + i) % table->size;
+    for (i = 1; i < table->size; i++){
+        collision_index = (index + i) % table->size;
 
         if (table->table[collision_index] && !strcmp(key, table->table[collision_index]->key)){
             destroyEntity_OA(table->table[collision_index]);
@@ -260,6 +263,31 @@ bool lookupExists_OA(char* key, struct hash_table_OA* table){
             return true;
     }
     return false;
+}
+
+
+bool lookupExists_SC(char *key, struct hash_table_SC *table){
+    if(!key || !table)
+        return false;
+    
+    unsigned long long index = hash(key) % table->size;
+
+    if (!table->table[index])
+        return false;
+
+    if (!strcmp(table->table[index]->key, key))
+        return true;
+    
+    struct entity_SC* traversal = table->table[index];
+
+    while(traversal){
+        if (!strcmp(traversal->key, key))
+            return true;
+        traversal = traversal->next;
+    }
+
+    return false;
+    
 }
 
 
