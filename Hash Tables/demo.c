@@ -9,21 +9,44 @@
 int main(){
     struct hash_table_SC* table = initHashTable_SC(1, "table one");
 
-    char* names[] = {"Lola", "Lola", "Keka"};
-    int datas[] = {1, 1, 3};
+    char* names[] = {"A", "B", "C"};
+    int data[] = {1, 2, 3};
 
-    insertEntity_HashTable_SC(initEntity_SC(names[0], datas[0]), table);
-    insertEntity_HashTable_SC(initEntity_SC(names[1], datas[1]), table);
-    insertEntity_HashTable_SC(initEntity_SC(names[1], datas[1]), table);
-    insertEntity_HashTable_SC(initEntity_SC(names[2], datas[2]), table);
-    deleteEntity_HashTable_SC(table, "Lola");
-    deleteEntity_HashTable_SC(table, "Keka");
-    deleteEntity_HashTable_SC(table, "My ass");
-    deleteEntity_HashTable_SC(table, "Lola");
-    deleteEntity_HashTable_SC(table, "Lola");
-    deleteEntity_HashTable_SC(table, "Lola");
+    insertEntity_HashTable_SC(initEntity_SC(names[0], data[0]), table);
+    insertEntity_HashTable_SC(initEntity_SC(names[1], data[1]), table);
+    insertEntity_HashTable_SC(initEntity_SC(names[2], data[2]), table);
+    deleteEntity_HashTable_SC(table, "A");
+    
+    printHashTable_SC(table);
+    
+    deleteEntity_HashTable_SC(table, "Z");
 
     printHashTable_SC(table);
+    
     destroyHashTable_SC(table);
     return 0;
+
 }
+
+// output:
+/*
+initHashTable: 'table one': Successfully initiated.
+insertEntity: 'A': inserted in table 'table one'.
+insertEntity: 'B': inserted in table 'table one'.
+insertEntity: 'C': inserted in table 'table one'.
+deleteEntity: 'A' : deleted from table 'table one'.
+========== Printing table 'table one' ==========
+'B' --- '2'
+        'C' --- '3'
+====================
+deleteEntity: 'Z' : Failed deleton : key not found in table 'table one'.
+========== Printing table 'table one' ==========
+'B' --- '2'
+        'C' --- '3'
+====================
+destroyHashTable: 'table one': destroyed succesfully.
+*/
+
+
+
+
