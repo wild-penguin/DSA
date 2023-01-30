@@ -22,6 +22,7 @@
     void destroyHashTable_OA(struct hash_table_OA* table);
     void destroyHashTable_SC(struct hash_table_SC* table);
     bool lookupExists_OA(char* key, struct hash_table_OA* table);
+    bool lookupExists_SC(char *key, struct hash_table_SC *table);
     void printHashTable_OA(const struct hash_table_OA* table);
     void printHashTable_SC(const struct hash_table_SC* table);
 #endif
